@@ -2,13 +2,13 @@ const { I } = inject();
 
 module.exports = {
   h1Text: { xpath: '//*[@id="content"]/h1' },
-  firstName: { xpath: '//*[@id="input-firstname"]' },
-  lastName: { xpath: '//*[@id="input-lastname"]' },
-  emailAddress: { xpath: '//*[@id="input-email"]' },
-  telephone: { xpath: '//*[@id="input-telephone"]' },
-  setPassword: { xpath: '//*[@id="input-password"]' },
-  repeatPassword: { xpath: '//*[@id="input-confirm"]' },
-  privacyPolicy: { xpath: '//*[@id="content"]/form/div/div/input[1]' },
+  firstNameField: { xpath: '//*[@id="input-firstname"]' },
+  lastNameField: { xpath: '//*[@id="input-lastname"]' },
+  emailAddressField: { xpath: '//*[@id="input-email"]' },
+  telephoneField: { xpath: '//*[@id="input-telephone"]' },
+  setPasswordField: { xpath: '//*[@id="input-password"]' },
+  repeatPasswordField: { xpath: '//*[@id="input-confirm"]' },
+  privacyPolicyRadio: { xpath: '//*[@id="content"]/form/div/div/input[1]' },
   continueButton: { xpath: '//*[@id="content"]/form/div/div/input[2]' },
 
   verifyRegisterAccountPage() {
@@ -16,15 +16,15 @@ module.exports = {
     I.seeTextEquals(regTitleText, this.h1Text);
   },
   fillNewUserForm(user) {
-    I.fillField(this.firstName, user.firstName);
-    I.fillField(this.lastName, user.lastName);
-    I.fillField(this.emailAddress, user.emailAddress);
-    I.fillField(this.telephone, user.telephone);
-    I.fillField(this.setPassword, user.setPassword);
-    I.fillField(this.repeatPassword, user.repeatPassword);
+    I.fillField(this.firstNameField, user.firstName);
+    I.fillField(this.lastNameField, user.lastName);
+    I.fillField(this.emailAddressField, user.emailAddress);
+    I.fillField(this.telephoneField, user.telephone);
+    I.fillField(this.setPasswordField, user.password);
+    I.fillField(this.repeatPasswordField, user.password);
   },
   submitNewUserForm() {
-    I.click(this.privacyPolicy);
+    I.click(this.privacyPolicyRadio);
     I.click(this.continueButton);
   },
   verifySuccessfullRegistration() {
