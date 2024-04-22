@@ -16,6 +16,8 @@ exports.config = {
     I: './steps_file.js',
     basePage: "./pages/base.js",
     accountPage: "./pages/account.js",
+
+    productPage: "./pages/product.js",
   },
   name: 'js-AVK'
 }

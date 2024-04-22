@@ -9,10 +9,12 @@ module.exports = function () {
     login(user) {
       this.amOnPage('http://opencart.qatestlab.net/index.php');
       this.click(signInButton);
+      this.waitForVisible(emailField);
       this.fillField(emailField, user.email);
       this.fillField(passwordField, user.password);
       this.click(submitButton);
-      this.seeTextEquals('My Order', myOrdersText);
+      this.waitForVisible(myOrdersText);
+      this.seeTextEquals('My Orders', myOrdersText);
     },
   });
 };
