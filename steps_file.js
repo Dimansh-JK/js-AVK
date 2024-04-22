@@ -1,10 +1,18 @@
-// in this file you can append custom step methods to 'I' object
+emailField = { xpath: '//input[@name="email"]' };
+passwordField = { xpath: '//input[@name="password"]' };
+signInButton = { xpath: '//a[text()="Sign In"]' };
+submitButton = { xpath: '//input[@type="submit"]' };
+myOrdersText = { xpath: '//div[@id="content"]/h2[2]' };
 
-module.exports = function() {
+module.exports = function () {
   return actor({
-
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
-
+    login(user) {
+      this.amOnPage('http://opencart.qatestlab.net/index.php');
+      this.click(signInButton);
+      this.fillField(emailField, user.email);
+      this.fillField(passwordField, user.password);
+      this.click(submitButton);
+      this.seeTextEquals('My Order', myOrdersText);
+    },
   });
-}
+};

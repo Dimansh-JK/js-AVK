@@ -9,5 +9,5 @@ module.exports = {
   },
   clickRegister() {
     I.click(this.registerButton);
-  }
-}
+  },
+};
