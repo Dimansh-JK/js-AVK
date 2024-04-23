@@ -22,12 +22,15 @@ module.exports = {
     I.click(this.addToCart);
   },
   async getProductPrice() {
-    const draftProductPrice = await I.grabTextFrom(this.productPriceText);
-    console.log(draftProductPrice);
-    const draftSizePrice = await I.grabTextFrom(this.sizeSelection);
-    console.log(draftSizePrice);
-    const draftColorPrice = await I.grabTextFrom(this.colorSelection);
-    console.log(draftColorPrice);
-    return +draftSizePrice; // "".slice(-6,-1); total price
+    const draftProductPriceGrab = await I.grabTextFrom(this.productPriceText);
+    const draftProductPrice = draftProductPriceGrab.slice(-5);
+    console.log('Product Price: ' + draftProductPrice);
+    const draftSizePriceGrab = await I.grabTextFrom(this.sizeSelection);
+    const draftSizePrice = draftSizePriceGrab.match(/\d+\.\d+/);
+    console.log('Size Price: ' + draftSizePrice);
+    const draftColorPriceGrab = await I.grabTextFrom(this.colorSelection);
+    const draftColorPrice = draftColorPriceGrab.match(/\d+\.\d+/);
+    console.log('Color Price: ' + draftColorPrice);
+    //return +draftSizePrice; // "".slice(-6,-1); total price
   },
 };

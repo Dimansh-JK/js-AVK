@@ -15,9 +15,9 @@ Scenario('buy product', async ({ I, productPage, basePage }) => {
   //I.login(USER);
   I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&path=20_262&product_id=44');
   productPage.optionsSelection();
-  //await productPage.getProductPrice();
+  await productPage.getProductPrice();
   //productPage.addToCart();
   //basePage.proceedToCheckout();
 
-  pause();
+  //pause();
 }).tag('buy');
