@@ -18,6 +18,8 @@ exports.config = {
     accountPage: "./pages/account.js",
 
     productPage: "./pages/product.js",
+
+    cartPage: "./pages/cart.js",
   },
   name: 'js-AVK'
 }

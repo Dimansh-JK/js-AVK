@@ -11,13 +11,15 @@ xScenario('Login', ({ I }) => {
   pause();
 }).tag('log');
 
-Scenario('buy product', async ({ I, productPage, basePage }) => {
-  //I.login(USER);
-  I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&path=20_262&product_id=44');
-  productPage.optionsSelection();
-  await productPage.getProductPrice();
-  //productPage.addToCart();
-  //basePage.proceedToCheckout();
+Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
+  I.login(USER);
+  I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=76');
+  //productPage.optionsSelection();
+  productPage.selectProductQty();
+  const grandTotalPrice = await productPage.getProductPrice();
+  console.log(grandTotalPrice);
+  productPage.addToCart();
+  basePage.proceedToCheckout();
 
-  //pause();
+  pause();
 }).tag('buy');
