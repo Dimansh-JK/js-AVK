@@ -16,5 +16,8 @@
         "@codeceptjs/ui": "^0.6.1",
         "codeceptjs": "^3.5.14",
         "playwright": "^1.43.1"
+    },
+    "dependencies": {
+        "codeceptjs-chai": "^2.3.5"
     }
 }

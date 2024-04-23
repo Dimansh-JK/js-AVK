@@ -2,5 +2,16 @@ const { I } = inject();
 
 module.exports = {
 
-  // insert your locators and methods here
+
+
+  
+ 
+  /*async getTotalPrice() {
+    
+  },
+  async getTax() {
+    
+  },*/
+
+
 }
