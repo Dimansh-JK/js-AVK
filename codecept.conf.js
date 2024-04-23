@@ -8,7 +8,7 @@ exports.config = {
       url: 'http://localhost',
       show: true,
       waitForNavigation: 'load',
-      waitForTimeout: 5000,
+      waitForTimeout: 10000,
       windowSize: '1400x900'
     }
   },
