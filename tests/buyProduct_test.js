@@ -1,9 +1,16 @@
+const { verifyRegisterAccountPage, fillingBillingDetailsFields } = require('../pages/cart');
 const product = require('../pages/product');
 
 const USER = {
   email: 'thedimansh@gmail.com',
   password: '0939949917',
+  firstName: 'John',
+  lastName: 'Dow',
+  address: 'Czeczow 34',
+  city: 'Krakow',
+  postCode: '34-070',
 };
+
 Feature('Buy Product');
 
 xScenario('Login', ({ I }) => {
@@ -20,11 +27,17 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   console.log(productPrice);
   productPage.addToCart();
   basePage.proceedToCheckout();
+  cartPage.verifyRegisterAccountPage();
+  cartPage.fillingBillingDetailsFields(USER);
+  cartPage.fillingShippingDetailsFields();
+  cartPage.fillingShippingMethodFields();
+  cartPage.fillingPaymentMethodField();
+
 
   //const totalPrice = await cartPage.getTotalPrice();
   //const tax = await cartPage.getTax();
   //productPrice+tax === totalPrice;
   //I.assertEqual(productPrice+tax, totalPrice, "Prices are not equal");
-  
+
   pause();
 }).tag('buy');
