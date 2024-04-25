@@ -16,6 +16,8 @@ module.exports = {
   shippingMethodContinueButton: { xpath: '//input[@id="button-shipping-method"]' },
   termsOfServiceCheckbox: { xpath: '//input[@id="agree1"]' },
   paymentMethodContinueButton: { xpath: '//input[@id="button-payment-method"]' },
+  existingAddressText: { xpath: '//label[@for="payment_addressexisting0"]' },
+  existingAddresRadio: {xpath: '//input[@type="radio"]'},
 
   verifyRegisterAccountPage() {
     const checkoutPageText = 'Checkout';
@@ -23,25 +25,33 @@ module.exports = {
   },
 
   fillingBillingDetailsFields(user) {
-    I.waitForVisible(this.firstNameField);
-    I.fillField(this.firstNameField, user.firstName);
-    I.fillField(this.lastNameField, user.lastName);
-    I.fillField(this.addressField, user.address);
-    I.fillField(this.cityField, user.city);
-    I.fillField(this.postCodeField, user.postCode);
-    I.click(this.countryDropDown);
-    I.click(this.countryCountryField);
-    I.click(this.regionDropDwonField);
-    I.click(this.regionCountryField);
-    I.click(this.billingAddressContinueButton);
+    I.waitForVisible(this.billingAddressContinueButton);
+    if (I.waitForElement(this.existingAddresRadio)) {
+      I.waitForVisible(this.billingAddressContinueButton);
+      I.click(this.billingAddressContinueButton);
+    } else {
+      I.waitForVisible(this.firstNameField);
+      I.fillField(this.firstNameField, user.firstName);
+      I.fillField(this.lastNameField, user.lastName);
+      I.fillField(this.addressField, user.address);
+      I.fillField(this.cityField, user.city);
+      I.fillField(this.postCodeField, user.postCode);
+      I.click(this.countryDropDown);
+      I.click(this.countryCountryField);
+      I.click(this.regionDropDwonField);
+      I.click(this.regionCountryField);
+    }
   },
   fillingShippingDetailsFields() {
+    I.waitForVisible(this.shippingAddressContinueButton);
     I.click(this.shippingAddressContinueButton);
   },
   fillingShippingMethodFields() {
+    I.waitForVisible(this.shippingMethodContinueButton);
     I.click(this.shippingMethodContinueButton);
   },
   fillingPaymentMethodField() {
+    I.waitForVisible(this.paymentMethodContinueButton);
     I.click(this.termsOfServiceCheckbox);
     I.click(this.paymentMethodContinueButton);
   },
