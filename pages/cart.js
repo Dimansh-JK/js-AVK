@@ -21,11 +21,12 @@ module.exports = {
   draftTotalProductPrice: { xpath: '//tfoot/tr[3]/td[2]' },
   draftShippingPrice: { xpath: '//tfoot/tr[2]/td[2]' },
   orderConfirmationButton: { xpath: '//input[@id="button-confirm"]' },
+  SuccessfullOrderText: { xpath: '//div[@id="content"]/h1/following-sibling::p[1]' },
 
-  /*verifyRegisterAccountPage() {
+  verifyRegisterAccountPage() {
     const checkoutPageText = 'Checkout';
     I.seeTextEquals(checkoutPageText, this.h1Text);
-  },*/
+  },
 
   fillingBillingDetailsFields(user) {
     I.waitForVisible(this.billingAddressContinueButton, 10);
@@ -54,12 +55,12 @@ module.exports = {
     I.click(this.shippingMethodContinueButton);
   },
   fillingPaymentMethodField() {
-    I.waitForVisible(this.paymentMethodContinueButton, 50);
+    I.waitForVisible(this.paymentMethodContinueButton, 10);
     I.click(this.termsOfServiceCheckbox);
     I.click(this.paymentMethodContinueButton);
   },
   async getTotalPrice() {
-    I.waitForVisible(this.draftTotalProductPrice, 50);
+    I.waitForVisible(this.draftTotalProductPrice, 10);
     const draftTotalProductPriceGrab = await I.grabTextFrom(this.draftTotalProductPrice);
     const slicedTotalProductPrice = +draftTotalProductPriceGrab.match(/\d+\.\d+/);
     return slicedTotalProductPrice;
@@ -70,11 +71,12 @@ module.exports = {
     return slicedShippingPrice;
   },
   placeOrder() {
-    I.waitForVisible(this.orderConfirmationButton, 50);
+    I.waitForVisible(this.orderConfirmationButton, 10);
     I.click(this.orderConfirmationButton);
   },
   verifyOrderIsPlaced() {
-    const placedOrderText = 'Your order has been placed!';
-    I.seeTextEquals(placedOrderText, this.h1Text);
+    const placedOrderText = 'Your order has been successfully processed!';
+    I.waitForVisible(this.SuccessfullOrderText, 10);
+    I.seeTextEquals(placedOrderText, this.SuccessfullOrderText);
   },
 };
