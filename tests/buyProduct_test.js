@@ -24,7 +24,6 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   //productPage.optionsSelection();
   productPage.selectProductQty();
   const productPrice = await productPage.getProductPrice();
-  console.log(productPrice);
   productPage.addToCart();
   basePage.proceedToCheckout();
   cartPage.verifyRegisterAccountPage();
@@ -32,12 +31,12 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   cartPage.fillingShippingDetailsFields();
   cartPage.fillingShippingMethodFields();
   cartPage.fillingPaymentMethodField();
+  const totalPrice = await cartPage.getTotalPrice();
+  const shippingPrice = await cartPage.getShipping();
+  console.log('Product Price: ' + productPrice);
+  console.log('Shipping Price: ' + shippingPrice);
+  console.log('Total Price: ' + totalPrice);
+  I.assertEqual(productPrice + shippingPrice, totalPrice, 'Prices are not equal');
 
-
-  //const totalPrice = await cartPage.getTotalPrice();
-  //const tax = await cartPage.getTax();
-  //productPrice+tax === totalPrice;
-  //I.assertEqual(productPrice+tax, totalPrice, "Prices are not equal");
-
-  pause();
+  //pause();
 }).tag('buy');

@@ -17,7 +17,9 @@ module.exports = {
   termsOfServiceCheckbox: { xpath: '//input[@id="agree1"]' },
   paymentMethodContinueButton: { xpath: '//input[@id="button-payment-method"]' },
   existingAddressText: { xpath: '//label[@for="payment_addressexisting0"]' },
-  existingAddresRadio: {xpath: '//input[@type="radio"]'},
+  existingAddresRadio: { xpath: '//input[@type="radio"]' },
+  draftTotalProductPrice: { xpath: '//tfoot/tr[3]/td[2]' },
+  draftShippingPrice: { xpath: '//tfoot/tr[2]/td[2]' },
 
   verifyRegisterAccountPage() {
     const checkoutPageText = 'Checkout';
@@ -25,7 +27,7 @@ module.exports = {
   },
 
   fillingBillingDetailsFields(user) {
-    I.waitForVisible(this.billingAddressContinueButton);
+    I.waitForVisible(this.billingAddressContinueButton,10);
     if (I.waitForElement(this.existingAddresRadio)) {
       I.waitForVisible(this.billingAddressContinueButton);
       I.click(this.billingAddressContinueButton);
@@ -43,22 +45,27 @@ module.exports = {
     }
   },
   fillingShippingDetailsFields() {
-    I.waitForVisible(this.shippingAddressContinueButton);
+    I.waitForVisible(this.shippingAddressContinueButton,10);
     I.click(this.shippingAddressContinueButton);
   },
   fillingShippingMethodFields() {
-    I.waitForVisible(this.shippingMethodContinueButton);
+    I.waitForVisible(this.shippingMethodContinueButton,10);
     I.click(this.shippingMethodContinueButton);
   },
   fillingPaymentMethodField() {
-    I.waitForVisible(this.paymentMethodContinueButton);
+    I.waitForVisible(this.paymentMethodContinueButton,50);
     I.click(this.termsOfServiceCheckbox);
     I.click(this.paymentMethodContinueButton);
   },
-  /*async getTotalPrice() {
-    
+  async getTotalPrice() {
+    I.waitForVisible(this.draftTotalProductPrice, 50);
+    const draftTotalProductPriceGrab = await I.grabTextFrom(this.draftTotalProductPrice);
+    const slicedTotalProductPrice = +draftTotalProductPriceGrab.match(/\d+\.\d+/);
+    return slicedTotalProductPrice;
   },
-  async getTax() {
-    
-  },*/
+  async getShipping() {
+    const draftShippingPriceGrab = await I.grabTextFrom(this.draftShippingPrice);
+    const slicedShippingPrice = +draftShippingPriceGrab.match(/\d+\.\d+/);
+    return slicedShippingPrice;
+  },
 };
