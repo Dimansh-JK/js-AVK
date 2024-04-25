@@ -14,8 +14,6 @@ module.exports = {
     I.click(this.registerButton);
   },
   proceedToCheckout() {
-    //I.click(this.cartButton);
-    //I.click(this.checkoutButton);
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=checkout/checkout');
   },
 };

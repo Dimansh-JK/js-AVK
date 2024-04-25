@@ -21,7 +21,6 @@ xScenario('Login', ({ I }) => {
 Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   I.login(USER);
   I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=76');
-  //productPage.optionsSelection();
   productPage.selectProductQty();
   const productPrice = await productPage.getProductPrice();
   productPage.addToCart();
