@@ -23,7 +23,6 @@ module.exports = {
   async getProductPrice() {
     const draftProductPriceGrab = await I.grabTextFrom(this.productPriceText);
     return this.clearPrice(draftProductPriceGrab);
-    
   },
   
 };

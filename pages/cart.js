@@ -21,16 +21,16 @@ module.exports = {
   draftTotalProductPrice: { xpath: '//tfoot/tr[3]/td[2]' },
   draftShippingPrice: { xpath: '//tfoot/tr[2]/td[2]' },
   orderConfirmationButton: { xpath: '//input[@id="button-confirm"]' },
-  SuccessfullOrderText: { xpath: '//div[@id="content"]/h1/following-sibling::p[1]' },
+  successfullOrderText: { xpath: '//div[@id="content"]/h1/following-sibling::p[1]' },
 
   verifyRegisterAccountPage() {
     const checkoutPageText = 'Checkout';
     I.seeTextEquals(checkoutPageText, this.h1Text);
   },
 
-  fillingBillingDetailsFields(user) {
+  async fillBillingDetailsFields(user) {
     I.waitForVisible(this.billingAddressContinueButton, 10);
-    if (I.grabNumberOfVisibleElements(this.existingAddresRadio)) {
+    if (!(await I.grabNumberOfVisibleElements(this.existingAddresRadio))) {
       I.waitForVisible(this.billingAddressContinueButton);
       I.click(this.billingAddressContinueButton);
     } else {
@@ -47,17 +47,17 @@ module.exports = {
     }
   },
 
-  fillingShippingDetailsFields() {
+  fillShippingDetailsFields() {
     I.waitForVisible(this.shippingAddressContinueButton, 10);
     I.click(this.shippingAddressContinueButton);
   },
 
-  fillingShippingMethodFields() {
+  fillShippingMethodFields() {
     I.waitForVisible(this.shippingMethodContinueButton, 10);
     I.click(this.shippingMethodContinueButton);
   },
 
-  fillingPaymentMethodField() {
+  fillPaymentMethodField() {
     I.waitForVisible(this.paymentMethodContinueButton, 10);
     I.click(this.termsOfServiceCheckbox);
     I.click(this.paymentMethodContinueButton);
@@ -85,7 +85,7 @@ module.exports = {
 
   verifyOrderIsPlaced() {
     const placedOrderText = 'Your order has been successfully processed!';
-    I.waitForVisible(this.SuccessfullOrderText, 10);
-    I.seeTextEquals(placedOrderText, this.SuccessfullOrderText);
+    I.waitForVisible(this.successfullOrderText, 10);
+    I.seeTextEquals(placedOrderText, this.successfullOrderText);
   },
 };

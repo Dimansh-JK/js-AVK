@@ -15,7 +15,6 @@ exports.config = {
       require: 'codeceptjs-chai',
     },
   },
-
   include: {
     I: './steps_file.js',
     basePage: './pages/base.js',

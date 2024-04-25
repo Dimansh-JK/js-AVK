@@ -20,10 +20,10 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   basePage.clickCartIcon();
   basePage.proceedToCheckout();
   cartPage.verifyRegisterAccountPage();
-  cartPage.fillingBillingDetailsFields(USER);
-  cartPage.fillingShippingDetailsFields();
-  cartPage.fillingShippingMethodFields();
-  cartPage.fillingPaymentMethodField();
+  await cartPage.fillBillingDetailsFields(USER);
+  cartPage.fillShippingDetailsFields();
+  cartPage.fillShippingMethodFields();
+  cartPage.fillPaymentMethodField();
   const totalPrice = await cartPage.getTotalPrice();
   const shippingPrice = await cartPage.getShipping();
   console.log('Single Product Price: ' + singleProductPrice);
