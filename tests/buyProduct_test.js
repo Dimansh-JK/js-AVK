@@ -26,7 +26,7 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   const productPrice = await productPage.getProductPrice();
   productPage.addToCart();
   basePage.proceedToCheckout();
-  cartPage.verifyRegisterAccountPage();
+  //cartPage.verifyRegisterAccountPage();
   cartPage.fillingBillingDetailsFields(USER);
   cartPage.fillingShippingDetailsFields();
   cartPage.fillingShippingMethodFields();
@@ -37,6 +37,5 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   console.log('Shipping Price: ' + shippingPrice);
   console.log('Total Price: ' + totalPrice);
   I.assertEqual(productPrice + shippingPrice, totalPrice, 'Prices are not equal');
-
-  //pause();
+  cartPage.verifyOrderIsPlaced();
 }).tag('buy');

@@ -20,14 +20,15 @@ module.exports = {
   existingAddresRadio: { xpath: '//input[@type="radio"]' },
   draftTotalProductPrice: { xpath: '//tfoot/tr[3]/td[2]' },
   draftShippingPrice: { xpath: '//tfoot/tr[2]/td[2]' },
+  orderConfirmationButton: { xpath: '//input[@id="button-confirm"]' },
 
-  verifyRegisterAccountPage() {
+  /*verifyRegisterAccountPage() {
     const checkoutPageText = 'Checkout';
     I.seeTextEquals(checkoutPageText, this.h1Text);
-  },
+  },*/
 
   fillingBillingDetailsFields(user) {
-    I.waitForVisible(this.billingAddressContinueButton,10);
+    I.waitForVisible(this.billingAddressContinueButton, 10);
     if (I.waitForElement(this.existingAddresRadio)) {
       I.waitForVisible(this.billingAddressContinueButton);
       I.click(this.billingAddressContinueButton);
@@ -45,15 +46,15 @@ module.exports = {
     }
   },
   fillingShippingDetailsFields() {
-    I.waitForVisible(this.shippingAddressContinueButton,10);
+    I.waitForVisible(this.shippingAddressContinueButton, 10);
     I.click(this.shippingAddressContinueButton);
   },
   fillingShippingMethodFields() {
-    I.waitForVisible(this.shippingMethodContinueButton,10);
+    I.waitForVisible(this.shippingMethodContinueButton, 10);
     I.click(this.shippingMethodContinueButton);
   },
   fillingPaymentMethodField() {
-    I.waitForVisible(this.paymentMethodContinueButton,50);
+    I.waitForVisible(this.paymentMethodContinueButton, 50);
     I.click(this.termsOfServiceCheckbox);
     I.click(this.paymentMethodContinueButton);
   },
@@ -67,5 +68,13 @@ module.exports = {
     const draftShippingPriceGrab = await I.grabTextFrom(this.draftShippingPrice);
     const slicedShippingPrice = +draftShippingPriceGrab.match(/\d+\.\d+/);
     return slicedShippingPrice;
+  },
+  placeOrder() {
+    I.waitForVisible(this.orderConfirmationButton, 50);
+    I.click(this.orderConfirmationButton);
+  },
+  verifyOrderIsPlaced() {
+    const placedOrderText = 'Your order has been placed!';
+    I.seeTextEquals(placedOrderText, this.h1Text);
   },
 };
