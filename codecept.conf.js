@@ -8,14 +8,19 @@ exports.config = {
       url: 'http://localhost',
       show: true,
       waitForNavigation: 'load',
-      waitForTimeout: 5000,
-      windowSize: '1400x900'
-    }
+      waitForTimeout: 10000,
+      windowSize: '1400x900',
+    },
+    ChaiWrapper: {
+      require: 'codeceptjs-chai',
+    },
   },
   include: {
     I: './steps_file.js',
-    basePage: "./pages/base.js",
-    accountPage: "./pages/account.js",
+    basePage: './pages/base.js',
+    accountPage: './pages/account.js',
+    productPage: './pages/product.js',
+    cartPage: './pages/cart.js',
   },
-  name: 'js-AVK'
-}
+  name: 'js-AVK',
+};
