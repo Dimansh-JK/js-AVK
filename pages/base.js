@@ -10,10 +10,17 @@ module.exports = {
   clickMyAccount() {
     I.click(this.myAccountSpoiler);
   },
+
   clickRegister() {
     I.click(this.registerButton);
   },
+
+  clickCartIcon() {
+    I.click(this.cartButton);
+  },
+  
   proceedToCheckout() {
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=checkout/checkout');
+    I.waitForVisible(this.checkoutButton);
+    I.click(this.checkoutButton);
   },
 };

@@ -30,7 +30,7 @@ module.exports = {
 
   fillingBillingDetailsFields(user) {
     I.waitForVisible(this.billingAddressContinueButton, 10);
-    if (I.waitForElement(this.existingAddresRadio)) {
+    if (I.grabNumberOfVisibleElements(this.existingAddresRadio)) {
       I.waitForVisible(this.billingAddressContinueButton);
       I.click(this.billingAddressContinueButton);
     } else {
@@ -46,34 +46,43 @@ module.exports = {
       I.click(this.regionCountryField);
     }
   },
+
   fillingShippingDetailsFields() {
     I.waitForVisible(this.shippingAddressContinueButton, 10);
     I.click(this.shippingAddressContinueButton);
   },
+
   fillingShippingMethodFields() {
     I.waitForVisible(this.shippingMethodContinueButton, 10);
     I.click(this.shippingMethodContinueButton);
   },
+
   fillingPaymentMethodField() {
     I.waitForVisible(this.paymentMethodContinueButton, 10);
     I.click(this.termsOfServiceCheckbox);
     I.click(this.paymentMethodContinueButton);
   },
+
+  clearPrice(string) {
+    return +string.match(/\d+\.\d+/);
+  },
+
   async getTotalPrice() {
     I.waitForVisible(this.draftTotalProductPrice, 10);
     const draftTotalProductPriceGrab = await I.grabTextFrom(this.draftTotalProductPrice);
-    const slicedTotalProductPrice = +draftTotalProductPriceGrab.match(/\d+\.\d+/);
-    return slicedTotalProductPrice;
+    return this.clearPrice(draftTotalProductPriceGrab);
   },
+
   async getShipping() {
     const draftShippingPriceGrab = await I.grabTextFrom(this.draftShippingPrice);
-    const slicedShippingPrice = +draftShippingPriceGrab.match(/\d+\.\d+/);
-    return slicedShippingPrice;
+    return this.clearPrice(draftShippingPriceGrab);
   },
+
   placeOrder() {
     I.waitForVisible(this.orderConfirmationButton, 10);
     I.click(this.orderConfirmationButton);
   },
+
   verifyOrderIsPlaced() {
     const placedOrderText = 'Your order has been successfully processed!';
     I.waitForVisible(this.SuccessfullOrderText, 10);

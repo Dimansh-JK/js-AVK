@@ -15,6 +15,7 @@ module.exports = {
     const regTitleText = 'Register Account';
     I.seeTextEquals(regTitleText, this.h1Text);
   },
+
   fillNewUserForm(user) {
     I.fillField(this.firstNameField, user.firstName);
     I.fillField(this.lastNameField, user.lastName);
@@ -23,14 +24,17 @@ module.exports = {
     I.fillField(this.setPasswordField, user.password);
     I.fillField(this.repeatPasswordField, user.password);
   },
+
   submitNewUserForm() {
     I.click(this.privacyPolicyRadio);
     I.click(this.continueButton);
   },
+
   verifySuccessfullRegistration() {
     const successfullRegistration = 'Your Account Has Been Created!';
     I.seeTextEquals(successfullRegistration, this.h1Text);
   },
+  
   waitForPageLoad() {
     I.waitForVisible(this.h1Text);
   },
