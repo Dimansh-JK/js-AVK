@@ -1,6 +1,7 @@
 const FileReader = require('../helpers/fileReader');
 const PATH = './productIds.txt';
 const productIds = FileReader.readFile(PATH);
+const importArray = FileReader.convertStringToArray(productIds);
 
 const USER = {
   email: 'thedimansh@gmail.com',
@@ -20,9 +21,9 @@ console.log(FileReader.convertStringToArray(productIds));
   
 Feature('Buy Product');
 
-Data(FileReader.convertStringToArray(productIds)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+Data(importArray).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
     //I.login(USER);
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current.);
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current);
     /*   const selectQtyAmountOfProduct = 3;
   productPage.selectProductQty(selectQtyAmountOfProduct);
   const singleProductPrice = await productPage.getProductPrice();
