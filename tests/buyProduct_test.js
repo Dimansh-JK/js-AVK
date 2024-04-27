@@ -12,17 +12,18 @@ const USER = {
   postCode: '34-070',
 };
 
-let productLink = new DataTable(['productLink']);
-//productLink.add(['76']);
-//productLink.add(['67']);
+/* let productLink = new DataTable(['productLink']);
+productLink.add(['76']);
+productLink.add(['67']); */
 
+console.log(FileReader.convertStringToArray(productIds));
+  
 Feature('Buy Product');
 
-Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
-  //I.login(USER);
-  //I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + FileReader.convertStringToArray(productIds));
-  console.log(FileReader.convertStringToArray(productIds));
-  /*   const selectQtyAmountOfProduct = 3;
+Data(FileReader.convertStringToArray(productIds)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+    //I.login(USER);
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current.);
+    /*   const selectQtyAmountOfProduct = 3;
   productPage.selectProductQty(selectQtyAmountOfProduct);
   const singleProductPrice = await productPage.getProductPrice();
   productPage.addToCart();
@@ -42,5 +43,5 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   I.assertEqual(singleProductPrice * selectQtyAmountOfProduct + shippingPrice, totalPrice, 'Prices are not equal');
   cartPage.placeOrder();
   cartPage.verifyOrderIsPlaced(); */
-})
+  })
   .tag('buy');
