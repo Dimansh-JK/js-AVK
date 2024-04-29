@@ -17,32 +17,38 @@ const USER = {
 productLink.add(['76']);
 productLink.add(['67']); */
 
-console.log(FileReader.convertStringToArray(productIds));
-  
 Feature('Buy Product');
 
-Data(importArray).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
-    //I.login(USER);
+Before(({ I }) => {
+  I.login(USER);
+});
+
+Data(importArray)
+  .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current);
-    /*   const selectQtyAmountOfProduct = 3;
-  productPage.selectProductQty(selectQtyAmountOfProduct);
-  const singleProductPrice = await productPage.getProductPrice();
-  productPage.addToCart();
-  basePage.clickCartIcon();
-  basePage.proceedToCheckout();
-  cartPage.verifyRegisterAccountPage();
-  await cartPage.fillBillingDetailsFields(USER);
-  cartPage.fillShippingDetailsFields();
-  cartPage.fillShippingMethodFields();
-  cartPage.fillPaymentMethodField();
-  const totalPrice = await cartPage.getTotalPrice();
-  const shippingPrice = await cartPage.getShipping();
-  console.log('Single Product Price: ' + singleProductPrice);
-  console.log('Qty of Product: ' + selectQtyAmountOfProduct);
-  console.log('Shipping Price: ' + shippingPrice);
-  console.log('Total Price: ' + totalPrice);
-  I.assertEqual(singleProductPrice * selectQtyAmountOfProduct + shippingPrice, totalPrice, 'Prices are not equal');
-  cartPage.placeOrder();
-  cartPage.verifyOrderIsPlaced(); */
+/*     const selectQtyAmountOfProduct = 3;
+    productPage.selectProductQty(selectQtyAmountOfProduct);
+    const singleProductPrice = await productPage.getProductPrice();
+    productPage.addToCart();
+    basePage.clickCartIcon();
+    basePage.proceedToCheckout();
+    cartPage.verifyRegisterAccountPage();
+    await cartPage.fillBillingDetailsFields(USER);
+    cartPage.fillShippingDetailsFields();
+    cartPage.fillShippingMethodFields();
+    cartPage.fillPaymentMethodField();
+    const totalPrice = await cartPage.getTotalPrice();
+    const shippingPrice = await cartPage.getShipping();
+    console.log('Single Product Price: ' + singleProductPrice);
+    console.log('Qty of Product: ' + selectQtyAmountOfProduct);
+    console.log('Shipping Price: ' + shippingPrice);
+    console.log('Total Price: ' + totalPrice);
+    I.assertEqual(singleProductPrice * selectQtyAmountOfProduct + shippingPrice, totalPrice, 'Prices are not equal');
+    cartPage.placeOrder();
+    cartPage.verifyOrderIsPlaced(); */
   })
   .tag('buy');
+
+  After(({ I, basePage }) => {
+    basePage.logoff();
+  });
