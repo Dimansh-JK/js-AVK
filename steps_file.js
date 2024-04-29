@@ -1,8 +1,11 @@
+const { h1Text } = require("./pages/account");
+
 emailField = { xpath: '//input[@name="email"]' };
 passwordField = { xpath: '//input[@name="password"]' };
 signInButton = { xpath: '//a[text()="Sign In"]' };
 submitButton = { xpath: '//input[@type="submit"]' };
 myOrdersText = { xpath: '//div[@id="content"]/h2[2]' };
+signOutButton = { xpath: '//a[text()="Sign Out"]' };
 
 module.exports = function () {
   return actor({
@@ -15,6 +18,13 @@ module.exports = function () {
       this.click(submitButton);
       this.waitForVisible(myOrdersText);
       this.seeTextEquals('My Orders', myOrdersText);
+    },
+
+    logoff() {
+      this.click(signOutButton);
+      const logoffValidation = 'Account Logout';
+      this.seeTextEquals(logoffValidation, h1Text);
+      console.log('user is logged off');
     },
   });
 };

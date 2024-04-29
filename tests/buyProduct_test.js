@@ -50,5 +50,5 @@ Data(importArray)
   .tag('buy');
 
   After(({ I, basePage }) => {
-    basePage.logoff();
+    I.logoff();
   });
