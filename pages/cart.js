@@ -22,6 +22,13 @@ module.exports = {
   draftShippingPrice: { xpath: '//tfoot/tr[2]/td[2]' },
   orderConfirmationButton: { xpath: '//input[@id="button-confirm"]' },
   successfullOrderText: { xpath: '//div[@id="content"]/h1/following-sibling::p[1]' },
+  productNotAvailable: { xpath: '//span[@class="text-danger"]' },
+
+  async checkIfProductAvailable() {
+    if ((await I.grabNumberOfVisibleElements(this.productNotAvailable)) > 0) {
+      throw new Error('Product is not available for this order');
+    }
+  },
 
   verifyRegisterAccountPage() {
     const checkoutPageText = 'Checkout';

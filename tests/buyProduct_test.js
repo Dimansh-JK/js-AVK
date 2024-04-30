@@ -2,6 +2,8 @@ const FileReader = require('../helpers/fileReader');
 const PATH = './productIds.txt';
 const productIds = FileReader.readFile(PATH);
 const importArray = FileReader.convertStringToArray(productIds);
+const randomProductID = importArray[Math.floor(Math.random() * importArray.length)];
+
 
 const USER = {
   email: 'thedimansh@gmail.com',
@@ -25,13 +27,14 @@ Before(({ I }) => {
 
 Data(importArray)
   .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current);
-/*     const selectQtyAmountOfProduct = 3;
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + randomProductID);
+    const selectQtyAmountOfProduct = 3;
     productPage.selectProductQty(selectQtyAmountOfProduct);
     const singleProductPrice = await productPage.getProductPrice();
     productPage.addToCart();
     basePage.clickCartIcon();
     basePage.proceedToCheckout();
+    await cartPage.checkIfProductAvailable();
     cartPage.verifyRegisterAccountPage();
     await cartPage.fillBillingDetailsFields(USER);
     cartPage.fillShippingDetailsFields();
@@ -45,7 +48,7 @@ Data(importArray)
     console.log('Total Price: ' + totalPrice);
     I.assertEqual(singleProductPrice * selectQtyAmountOfProduct + shippingPrice, totalPrice, 'Prices are not equal');
     cartPage.placeOrder();
-    cartPage.verifyOrderIsPlaced(); */
+    cartPage.verifyOrderIsPlaced();
   })
   .tag('buy');
 
