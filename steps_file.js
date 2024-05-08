@@ -6,6 +6,7 @@ signInButton = { xpath: '//a[text()="Sign In"]' };
 submitButton = { xpath: '//input[@type="submit"]' };
 myOrdersText = { xpath: '//div[@id="content"]/h2[2]' };
 signOutButton = { xpath: '//a[text()="Sign Out"]' };
+notAvilableButton = { xpath: '//div[@id="checkout-cart"]/div[1]/button' };
 
 module.exports = function () {
   return actor({
@@ -20,9 +21,15 @@ module.exports = function () {
       this.seeTextEquals('My Orders', myOrdersText);
     },
 
-    logoff() {
-      this.waitForVisible(signOutButton, '10');
-      this.waitForNavigation('10')
+    async logoff() {
+      /* this.click(signOutButton);
+      const logoffValidation = 'Account Logout';
+      this.seeTextEquals(logoffValidation, h1Text);
+      console.log('user is logged off'); */
+
+      if (!(await this.grabNumberOfVisibleElements(notAvilableButton))) {
+        this.click(notAvilableButton);
+      }
       this.click(signOutButton);
       const logoffValidation = 'Account Logout';
       this.seeTextEquals(logoffValidation, h1Text);

@@ -51,6 +51,6 @@ Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
   })
   .tag('buy');
 
-  After(({ I, basePage }) => {
-    I.logoff();
+  After(async ({ I, basePage }) => {
+    await I.logoff();
   });
