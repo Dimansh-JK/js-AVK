@@ -2,7 +2,7 @@ const FileReader = require('../helpers/fileReader');
 const PATH = './productIds.txt';
 const productIds = FileReader.readFile(PATH);
 const importArray = FileReader.convertStringToArray(productIds);
-const randomProductID = importArray[Math.floor(Math.random() * importArray.length)];
+let randomProductID = importArray[Math.floor(Math.random() * importArray.length)];
 
 
 const USER = {
@@ -25,8 +25,7 @@ Before(({ I }) => {
   I.login(USER);
 });
 
-Data(importArray)
-  .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + randomProductID);
     const selectQtyAmountOfProduct = 3;
     productPage.selectProductQty(selectQtyAmountOfProduct);

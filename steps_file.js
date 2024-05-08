@@ -1,4 +1,4 @@
-const { h1Text } = require("./pages/account");
+const { h1Text } = require('./pages/account');
 
 emailField = { xpath: '//input[@name="email"]' };
 passwordField = { xpath: '//input[@name="password"]' };
@@ -21,6 +21,8 @@ module.exports = function () {
     },
 
     logoff() {
+      this.waitForVisible(signOutButton, '10');
+      this.waitForNavigation('10')
       this.click(signOutButton);
       const logoffValidation = 'Account Logout';
       this.seeTextEquals(logoffValidation, h1Text);
