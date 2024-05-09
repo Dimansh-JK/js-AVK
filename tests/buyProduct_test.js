@@ -4,7 +4,6 @@ const productIds = FileReader.readFile(PATH);
 const importArray = FileReader.convertStringToArray(productIds);
 let randomProductID = importArray[Math.floor(Math.random() * importArray.length)];
 
-
 const USER = {
   email: 'thedimansh@gmail.com',
   password: '0939949917',
@@ -15,9 +14,11 @@ const USER = {
   postCode: '34-070',
 };
 
-/* let productLink = new DataTable(['productLink']);
-productLink.add(['76']);
-productLink.add(['67']); */
+function randomArray(array) {
+  return array.sort(function () {
+    return Math.random() - 0.5; // это нагуглил
+  });
+}
 
 Feature('Buy Product');
 
@@ -25,8 +26,8 @@ Before(({ I }) => {
   I.login(USER);
 });
 
-Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + randomProductID);
+Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current);
     const selectQtyAmountOfProduct = 3;
     productPage.selectProductQty(selectQtyAmountOfProduct);
     const singleProductPrice = await productPage.getProductPrice();
