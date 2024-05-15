@@ -23,6 +23,10 @@ module.exports = function () {
       this.seeTextEquals('My Orders', myOrdersText);
     },
 
+    openProduct(id) {
+       this.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + id);
+     },
+
     async logoff() {
       if (await this.grabNumberOfVisibleElements(notAvilableButton)) {
         this.click(notAvilableButton);

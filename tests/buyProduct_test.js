@@ -3,6 +3,7 @@ const PATH = './productIds.txt';
 const productIds = FileReader.readFile(PATH);
 const importArray = FileReader.convertStringToArray(productIds);
 let randomProductID = importArray[Math.floor(Math.random() * importArray.length)];
+// I would like to keep it - to have an idea how it should looks like. please allow me to keep it.
 
 const USER = {
   email: 'thedimansh@gmail.com',
@@ -27,14 +28,14 @@ Before(({ I }) => {
 });
 
 Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
-    I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + current);
-    const selectQtyAmountOfProduct = 3;
-    productPage.selectProductQty(selectQtyAmountOfProduct);
+    I.openProduct(current);
+    const AMOUNT_OF_PRODUCTS = 3;
+    productPage.selectProductQty(AMOUNT_OF_PRODUCTS);
     const singleProductPrice = await productPage.getProductPrice();
     productPage.addToCart();
     basePage.clickCartIcon();
     basePage.proceedToCheckout();
-    await cartPage.checkIfProductAvailable();
+    await cartPage.verifyProductIsAvailable();
     cartPage.verifyRegisterAccountPage();
     await cartPage.fillBillingDetailsFields(USER);
     cartPage.fillShippingDetailsFields();
@@ -43,15 +44,15 @@ Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, 
     const totalPrice = await cartPage.getTotalPrice();
     const shippingPrice = await cartPage.getShipping();
     console.log('Single Product Price: ' + singleProductPrice);
-    console.log('Qty of Product: ' + selectQtyAmountOfProduct);
+    console.log('Qty of Product: ' + AMOUNT_OF_PRODUCTS);
     console.log('Shipping Price: ' + shippingPrice);
     console.log('Total Price: ' + totalPrice);
-    I.assertEqual(singleProductPrice * selectQtyAmountOfProduct + shippingPrice, totalPrice, 'Prices are not equal');
+    I.assertEqual(singleProductPrice * AMOUNT_OF_PRODUCTS + shippingPrice, totalPrice, 'Prices are not equal');
     cartPage.placeOrder();
     cartPage.verifyOrderIsPlaced();
   })
   .tag('buy');
 
-  After(async ({ I, basePage }) => {
+  After(async ({ I }) => {
     await I.logoff();
   });
