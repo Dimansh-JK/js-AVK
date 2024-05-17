@@ -12,7 +12,7 @@ emptyCartButton = { xpath: '//div[@class="buttons"]/button[2]' };
 
 module.exports = function () {
   return actor({
-    login(user) {
+    async login(user) {
       this.amOnPage('http://opencart.qatestlab.net/index.php');
       this.click(signInButton);
       this.waitForVisible(emailField);
@@ -21,17 +21,19 @@ module.exports = function () {
       this.click(submitButton);
       this.waitForVisible(myOrdersText);
       this.seeTextEquals('My Orders', myOrdersText);
+      this.click(cartButton);
+      if (await this.grabNumberOfVisibleElements(emptyCartButton)) {
+        this.click(emptyCartButton);
+      }
     },
 
     openProduct(id) {
-       this.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + id);
-     },
+      this.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=' + id);
+    },
 
     async logoff() {
       if (await this.grabNumberOfVisibleElements(notAvilableButton)) {
         this.click(notAvilableButton);
-        this.click(cartButton);
-        this.click(emptyCartButton);
       }
       this.click(signOutButton);
       const logoffValidation = 'Account Logout';

@@ -23,7 +23,7 @@ function randomArray(array) {
 
 Feature('Buy Product');
 
-Before(({ I }) => {
+Before(async ({ I }) => {
   I.login(USER);
 });
 
