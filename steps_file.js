@@ -22,7 +22,7 @@ module.exports = function () {
       this.waitForVisible(myOrdersText);
       this.seeTextEquals('My Orders', myOrdersText);
       this.click(cartButton);
-      if (await this.grabNumberOfVisibleElements(emptyCartButton)) {
+      while (await this.grabNumberOfVisibleElements(emptyCartButton)) {
         this.click(emptyCartButton);
       }
     },

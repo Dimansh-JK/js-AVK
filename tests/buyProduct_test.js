@@ -24,7 +24,7 @@ function randomArray(array) {
 Feature('Buy Product');
 
 Before(async ({ I }) => {
-  I.login(USER);
+  await I.login(USER);
 });
 
 Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
