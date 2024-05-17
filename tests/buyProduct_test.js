@@ -1,3 +1,10 @@
+const FileReader = require('../helpers/fileReader');
+const PATH = './productIds.txt';
+const productIds = FileReader.readFile(PATH);
+const importArray = FileReader.convertStringToArray(productIds);
+let randomProductID = importArray[Math.floor(Math.random() * importArray.length)];
+// I would like to keep it - to have an idea how it should looks like. please allow me to keep it.
+
 const USER = {
   email: 'thedimansh@gmail.com',
   password: '0939949917',
@@ -8,29 +15,44 @@ const USER = {
   postCode: '34-070',
 };
 
+function randomArray(array) {
+  return array.sort(function () {
+    return Math.random() - 0.5; // это нагуглил
+  });
+}
+
 Feature('Buy Product');
 
-Scenario('buy product', async ({ I, productPage, basePage, cartPage }) => {
-  I.login(USER);
-  I.amOnPage('http://opencart.qatestlab.net/index.php?route=product/product&product_id=76');
-  const selectQtyAmountOfProduct = 3;
-  productPage.selectProductQty(selectQtyAmountOfProduct);
-  const singleProductPrice = await productPage.getProductPrice();
-  productPage.addToCart();
-  basePage.clickCartIcon();
-  basePage.proceedToCheckout();
-  cartPage.verifyRegisterAccountPage();
-  await cartPage.fillBillingDetailsFields(USER);
-  cartPage.fillShippingDetailsFields();
-  cartPage.fillShippingMethodFields();
-  cartPage.fillPaymentMethodField();
-  const totalPrice = await cartPage.getTotalPrice();
-  const shippingPrice = await cartPage.getShipping();
-  console.log('Single Product Price: ' + singleProductPrice);
-  console.log('Qty of Product: ' + selectQtyAmountOfProduct);
-  console.log('Shipping Price: ' + shippingPrice);
-  console.log('Total Price: ' + totalPrice);
-  I.assertEqual(singleProductPrice * selectQtyAmountOfProduct + shippingPrice, totalPrice, 'Prices are not equal');
-  cartPage.placeOrder();
-  cartPage.verifyOrderIsPlaced();
-}).tag('buy');
+Before(async ({ I }) => {
+  await I.login(USER);
+});
+
+Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+    I.openProduct(current);
+    const AMOUNT_OF_PRODUCTS = 3;
+    productPage.selectProductQty(AMOUNT_OF_PRODUCTS);
+    const singleProductPrice = await productPage.getProductPrice();
+    productPage.addToCart();
+    basePage.clickCartIcon();
+    basePage.proceedToCheckout();
+    await cartPage.verifyProductIsAvailable();
+    cartPage.verifyRegisterAccountPage();
+    await cartPage.fillBillingDetailsFields(USER);
+    cartPage.fillShippingDetailsFields();
+    cartPage.fillShippingMethodFields();
+    cartPage.fillPaymentMethodField();
+    const totalPrice = await cartPage.getTotalPrice();
+    const shippingPrice = await cartPage.getShipping();
+    console.log('Single Product Price: ' + singleProductPrice);
+    console.log('Qty of Product: ' + AMOUNT_OF_PRODUCTS);
+    console.log('Shipping Price: ' + shippingPrice);
+    console.log('Total Price: ' + totalPrice);
+    I.assertEqual(singleProductPrice * AMOUNT_OF_PRODUCTS + shippingPrice, totalPrice, 'Prices are not equal');
+    cartPage.placeOrder();
+    cartPage.verifyOrderIsPlaced();
+  })
+  .tag('buy');
+
+  After(async ({ I }) => {
+    await I.logoff();
+  });
