@@ -70,19 +70,15 @@ module.exports = {
     I.click(this.paymentMethodContinueButton);
   },
 
-  clearPrice(string) {
-    return +string.match(/\d+\.\d+/);
-  },
-
   async getTotalPrice() {
     I.waitForVisible(this.draftTotalProductPrice, 10);
     const draftTotalProductPriceGrab = await I.grabTextFrom(this.draftTotalProductPrice);
-    return this.clearPrice(draftTotalProductPriceGrab);
+    return await I.grabPriceFromString(draftTotalProductPriceGrab);
   },
 
   async getShipping() {
     const draftShippingPriceGrab = await I.grabTextFrom(this.draftShippingPrice);
-    return this.clearPrice(draftShippingPriceGrab);
+    return await I.grabPriceFromString(draftShippingPriceGrab);
   },
 
   placeOrder() {
