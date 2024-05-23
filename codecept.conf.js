@@ -17,6 +17,9 @@ exports.config = {
     PriceGrabber: {
       require: './helpers/pricegrabber_helper.js',
     },
+    CheckElement: {
+      require: './helpers/checkelement_helper.js',
+    },
   },
   include: {
     I: './steps_file.js',

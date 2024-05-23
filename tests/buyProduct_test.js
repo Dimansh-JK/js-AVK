@@ -14,7 +14,6 @@ const USER = {
   city: 'Krakow',
   postCode: '34-070',
 };
-
 function randomArray(array) {
   return array.sort(function () {
     return Math.random() - 0.5; // это нагуглил
@@ -27,7 +26,8 @@ Before(async ({ I }) => {
   await I.login(USER);
 });
 
-Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+Data(randomArray(importArray))
+  .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
     I.openProduct(current);
     const AMOUNT_OF_PRODUCTS = 3;
     productPage.selectProductQty(AMOUNT_OF_PRODUCTS);
@@ -53,6 +53,13 @@ Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, 
   })
   .tag('buy');
 
-  After(async ({ I }) => {
-    await I.logoff();
-  });
+Data(randomArray(importArray))
+  .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+    I.openProduct(current);
+    await I.checkElementExists({ xpath: '//div[@class="price"]' });
+  })
+  .tag('interim');
+
+After(async ({ I }) => {
+  await I.logoff();
+});
