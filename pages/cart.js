@@ -25,7 +25,7 @@ module.exports = {
   productNotAvailableAlert: { xpath: '//span[@class="text-danger"]' },
 
   async verifyProductIsAvailable() {
-    if ((await I.grabNumberOfVisibleElements(this.productNotAvailableAlert)) > 0) {
+    if ((await I.checkElementExists(this.productNotAvailableAlert)) > 0) {
       throw new Error('Product is not available for this order');
     }
   },
@@ -37,7 +37,7 @@ module.exports = {
 
   async fillBillingDetailsFields(user) {
     I.waitForVisible(this.billingAddressContinueButton, 10);
-    if (!(await I.grabNumberOfVisibleElements(this.existingAddresRadio))) {
+    if (!(await I.checkElementExists(this.existingAddresRadio))) {
       I.waitForVisible(this.billingAddressContinueButton);
       I.click(this.billingAddressContinueButton);
     } else {

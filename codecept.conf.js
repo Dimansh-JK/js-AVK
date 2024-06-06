@@ -20,6 +20,17 @@ exports.config = {
     CheckElement: {
       require: './helpers/checkelement_helper.js',
     },
+    REST: {
+      endpoint: 'http://api.nbp.pl/api/',
+      prettyPrintJson: true,
+      defaultHeaders: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    },
+    JSONResponse: {
+  
+    },
   },
   include: {
     I: './steps_file.js',

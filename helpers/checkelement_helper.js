@@ -3,7 +3,7 @@ const Helper = require('@codeceptjs/helper');
 class CheckElement extends Helper {
   
   async checkElementExists(locator) {
-    // tryto
+    
     return Boolean(await this.helpers['Playwright'].grabNumberOfVisibleElements(locator));
   }
 

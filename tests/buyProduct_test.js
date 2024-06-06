@@ -41,24 +41,22 @@ Data(randomArray(importArray))
     cartPage.fillShippingDetailsFields();
     cartPage.fillShippingMethodFields();
     cartPage.fillPaymentMethodField();
-    const totalPrice = await cartPage.getTotalPrice();
     const shippingPrice = await cartPage.getShipping();
+    const totalPrice = await cartPage.getTotalPrice();
+    const usdRate = (await I.sendGetRequest('/exchangerates/rates/A/USD?format=json')).data.rates[0].mid;
+    I.seeResponseCodeIs(200);
+    // вынести в хелпер
+    const totalPricePLN = ((usdRate * totalPrice).toFixed(2));
     console.log('Single Product Price: ' + singleProductPrice);
     console.log('Qty of Product: ' + AMOUNT_OF_PRODUCTS);
     console.log('Shipping Price: ' + shippingPrice);
     console.log('Total Price: ' + totalPrice);
+    console.log('Total Price in PLN: ' + totalPricePLN);
     I.assertEqual(singleProductPrice * AMOUNT_OF_PRODUCTS + shippingPrice, totalPrice, 'Prices are not equal');
     cartPage.placeOrder();
     cartPage.verifyOrderIsPlaced();
   })
   .tag('buy');
-
-Data(randomArray(importArray))
-  .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
-    I.openProduct(current);
-    await I.checkElementExists({ xpath: '//div[@class="price"]' });
-  })
-  .tag('interim');
 
 After(async ({ I }) => {
   await I.logoff();
