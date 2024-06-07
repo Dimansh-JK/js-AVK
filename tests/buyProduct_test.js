@@ -43,10 +43,8 @@ Data(randomArray(importArray))
     cartPage.fillPaymentMethodField();
     const shippingPrice = await cartPage.getShipping();
     const totalPrice = await cartPage.getTotalPrice();
-    const usdRate = (await I.sendGetRequest('/exchangerates/rates/A/USD?format=json')).data.rates[0].mid;
-    I.seeResponseCodeIs(200);
-    // вынести в хелпер
-    const totalPricePLN = ((usdRate * totalPrice).toFixed(2));
+    await I.getRatePLNtoUSD();
+  const totalPricePLN = (await I.getRatePLNtoUSD() * 100).toFixed(2);
     console.log('Single Product Price: ' + singleProductPrice);
     console.log('Qty of Product: ' + AMOUNT_OF_PRODUCTS);
     console.log('Shipping Price: ' + shippingPrice);
@@ -57,6 +55,17 @@ Data(randomArray(importArray))
     cartPage.verifyOrderIsPlaced();
   })
   .tag('buy');
+
+
+/* Scenario('test', async ({ I }) => {
+    
+    //await I.getRatePLNtoUSD();
+  const totalPricePLN = (await I.getRatePLNtoUSD() * 100).toFixed(2);
+  console.log('test: ' + totalPricePLN);
+  })
+  .tag('test'); */
+
+
 
 After(async ({ I }) => {
   await I.logoff();

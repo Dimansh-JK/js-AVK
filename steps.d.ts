@@ -7,10 +7,11 @@ type cartPage = typeof import('./pages/cart.js');
 type ChaiWrapper = import('codeceptjs-chai');
 type PriceGrabber = import('./helpers/pricegrabber_helper.js');
 type CheckElement = import('./helpers/checkelement_helper.js');
+type RatePLNtoUSD = import('./helpers/rateplntousd_helper.js');
 
 declare namespace CodeceptJS {
   interface SupportObject { I: I, current: any, basePage: basePage, accountPage: accountPage, productPage: productPage, cartPage: cartPage }
-  interface Methods extends Playwright, ChaiWrapper, PriceGrabber, CheckElement, REST, JSONResponse {}
+  interface Methods extends Playwright, ChaiWrapper, PriceGrabber, CheckElement, REST, JSONResponse, RatePLNtoUSD {}
   interface I extends ReturnType<steps_file>, WithTranslation<Methods> {}
   namespace Translation {
     interface Actions {}

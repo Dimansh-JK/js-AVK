@@ -28,8 +28,9 @@ exports.config = {
         Accept: 'application/json',
       },
     },
-    JSONResponse: {
-  
+    JSONResponse: {},
+    RatePLNtoUSD: {
+      require: './helpers/rateplntousd_helper.js',
     },
   },
   include: {
