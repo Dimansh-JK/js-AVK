@@ -56,17 +56,6 @@ Data(randomArray(importArray))
   })
   .tag('buy');
 
-
-/* Scenario('test', async ({ I }) => {
-    
-    //await I.getRatePLNtoUSD();
-  const totalPricePLN = (await I.getRatePLNtoUSD() * 100).toFixed(2);
-  console.log('test: ' + totalPricePLN);
-  })
-  .tag('test'); */
-
-
-
 After(async ({ I }) => {
   await I.logoff();
 });

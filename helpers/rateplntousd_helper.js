@@ -7,9 +7,6 @@ class RatePLNtoUSD extends Helper {
     this.helpers['JSONResponse'].seeResponseCodeIs(200);
     return +usdRate;
   }
-  // add custom methods here
-  // If you need to access other helpers
-  // use: this.helpers['helperName']
 }
 
 module.exports = RatePLNtoUSD;
