@@ -14,7 +14,6 @@ const USER = {
   city: 'Krakow',
   postCode: '34-070',
 };
-
 function randomArray(array) {
   return array.sort(function () {
     return Math.random() - 0.5; // это нагуглил
@@ -27,7 +26,8 @@ Before(async ({ I }) => {
   await I.login(USER);
 });
 
-Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
+Data(randomArray(importArray))
+  .Scenario('buy product', async ({ I, productPage, basePage, cartPage, current }) => {
     I.openProduct(current);
     const AMOUNT_OF_PRODUCTS = 3;
     productPage.selectProductQty(AMOUNT_OF_PRODUCTS);
@@ -41,18 +41,20 @@ Data(randomArray(importArray)).Scenario('buy product', async ({ I, productPage, 
     cartPage.fillShippingDetailsFields();
     cartPage.fillShippingMethodFields();
     cartPage.fillPaymentMethodField();
-    const totalPrice = await cartPage.getTotalPrice();
     const shippingPrice = await cartPage.getShipping();
+    const totalPrice = await cartPage.getTotalPrice();
+  const totalPricePLN = ((await I.getRatePLNtoUSD()) * totalPrice).toFixed(2);
     console.log('Single Product Price: ' + singleProductPrice);
     console.log('Qty of Product: ' + AMOUNT_OF_PRODUCTS);
     console.log('Shipping Price: ' + shippingPrice);
     console.log('Total Price: ' + totalPrice);
+    console.log('Total Price in PLN: ' + totalPricePLN);
     I.assertEqual(singleProductPrice * AMOUNT_OF_PRODUCTS + shippingPrice, totalPrice, 'Prices are not equal');
     cartPage.placeOrder();
     cartPage.verifyOrderIsPlaced();
   })
   .tag('buy');
 
-  After(async ({ I }) => {
-    await I.logoff();
-  });
+After(async ({ I }) => {
+  await I.logoff();
+});

@@ -14,15 +14,10 @@ module.exports = {
   addToCart() {
     I.click(this.addToCartButton);
   },
-  
-  clearPrice(string) {
-    const clearString = +string.match(/\d+\.\d+/);
-    return clearString;
-  },
 
   async getProductPrice() {
     const draftProductPriceGrab = await I.grabTextFrom(this.productPriceText);
-    return this.clearPrice(draftProductPriceGrab);
+    return await I.grabPriceFromString(draftProductPriceGrab);
   },
   
 };

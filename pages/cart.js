@@ -25,7 +25,7 @@ module.exports = {
   productNotAvailableAlert: { xpath: '//span[@class="text-danger"]' },
 
   async verifyProductIsAvailable() {
-    if ((await I.grabNumberOfVisibleElements(this.productNotAvailableAlert)) > 0) {
+    if ((await I.checkElementExists(this.productNotAvailableAlert))) {
       throw new Error('Product is not available for this order');
     }
   },
@@ -37,7 +37,7 @@ module.exports = {
 
   async fillBillingDetailsFields(user) {
     I.waitForVisible(this.billingAddressContinueButton, 10);
-    if (!(await I.grabNumberOfVisibleElements(this.existingAddresRadio))) {
+    if (!(await I.checkElementExists(this.existingAddresRadio))) {
       I.waitForVisible(this.billingAddressContinueButton);
       I.click(this.billingAddressContinueButton);
     } else {
@@ -70,19 +70,15 @@ module.exports = {
     I.click(this.paymentMethodContinueButton);
   },
 
-  clearPrice(string) {
-    return +string.match(/\d+\.\d+/);
-  },
-
   async getTotalPrice() {
     I.waitForVisible(this.draftTotalProductPrice, 10);
     const draftTotalProductPriceGrab = await I.grabTextFrom(this.draftTotalProductPrice);
-    return this.clearPrice(draftTotalProductPriceGrab);
+    return await I.grabPriceFromString(draftTotalProductPriceGrab);
   },
 
   async getShipping() {
     const draftShippingPriceGrab = await I.grabTextFrom(this.draftShippingPrice);
-    return this.clearPrice(draftShippingPriceGrab);
+    return await I.grabPriceFromString(draftShippingPriceGrab);
   },
 
   placeOrder() {

@@ -14,6 +14,21 @@ exports.config = {
     ChaiWrapper: {
       require: 'codeceptjs-chai',
     },
+    Generic: {
+      require: './helpers/generic_helper.js',
+    },
+    REST: {
+      endpoint: 'http://api.nbp.pl/api/',
+      prettyPrintJson: true,
+      defaultHeaders: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    },
+    JSONResponse: {},
+    RatePLNtoUSD: {
+      require: './helpers/rateplntousd_helper.js',
+    },
   },
   include: {
     I: './steps_file.js',
