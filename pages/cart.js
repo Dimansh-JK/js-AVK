@@ -25,7 +25,7 @@ module.exports = {
   productNotAvailableAlert: { xpath: '//span[@class="text-danger"]' },
 
   async verifyProductIsAvailable() {
-    if ((await I.checkElementExists(this.productNotAvailableAlert)) > 0) {
+    if ((await I.checkElementExists(this.productNotAvailableAlert))) {
       throw new Error('Product is not available for this order');
     }
   },

@@ -43,8 +43,7 @@ Data(randomArray(importArray))
     cartPage.fillPaymentMethodField();
     const shippingPrice = await cartPage.getShipping();
     const totalPrice = await cartPage.getTotalPrice();
-    await I.getRatePLNtoUSD();
-  const totalPricePLN = (await I.getRatePLNtoUSD() * 100).toFixed(2);
+  const totalPricePLN = ((await I.getRatePLNtoUSD()) * totalPrice).toFixed(2);
     console.log('Single Product Price: ' + singleProductPrice);
     console.log('Qty of Product: ' + AMOUNT_OF_PRODUCTS);
     console.log('Shipping Price: ' + shippingPrice);

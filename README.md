@@ -14,6 +14,7 @@ In this course, I learned the basics of test automation using the JavaScript pro
 If your README is long, add a table of contents to make it easy for users to find what they need.
 
 - [Installation](#installation)
+- [Run](#run)
 - [Features](#features)
 - [Credits](#credits)
 - [License](#license)
@@ -26,6 +27,16 @@ To ensure the functionality of the project, it is necessary to install or use:
 - Git (https://git-scm.com/downloads)
 - Node.js (https://nodejs.org/en/)
 - CodeceptJS Playwright (https://codecept.io)
+    - npx create-codeceptjs .
+    - npm install codeceptjs playwright --save
+    - npm install -g npm@10.8.1 (update if required)
+    - npx codeceptjs init
+
+## Run
+
+- npx codeceptjs def // Refresh of Definitions
+- npx codeceptjs run // Start of Tests
+
 
 ## Features
 

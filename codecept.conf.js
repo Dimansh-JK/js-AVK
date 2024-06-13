@@ -14,11 +14,8 @@ exports.config = {
     ChaiWrapper: {
       require: 'codeceptjs-chai',
     },
-    PriceGrabber: {
-      require: './helpers/pricegrabber_helper.js',
-    },
-    CheckElement: {
-      require: './helpers/checkelement_helper.js',
+    Generic: {
+      require: './helpers/generic_helper.js',
     },
     REST: {
       endpoint: 'http://api.nbp.pl/api/',
