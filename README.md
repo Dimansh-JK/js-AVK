@@ -31,6 +31,8 @@ To ensure the functionality of the project, it is necessary to install or use:
     - npm install codeceptjs playwright --save
     - npm install -g npm@10.8.1 (update if required)
     - npx codeceptjs init
+- Mochawesome Custom Reporter
+    - npm i mochawesome
 
 ## Run
 

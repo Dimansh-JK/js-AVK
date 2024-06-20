@@ -37,5 +37,13 @@ exports.config = {
     productPage: './pages/product.js',
     cartPage: './pages/cart.js',
   },
+  mocha: {
+    reporterOptions: {
+      reportDir: 'output',
+      json: 'false',
+      reportFilename: '[datetime]_[name]_[status]-report',
+      timestamp: 'longDate',
+    },
+  },
   name: 'js-AVK',
 };
