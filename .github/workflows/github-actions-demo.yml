@@ -1,5 +1,5 @@
 name: Store test
-run-name: "${{ github.actor }} is testing Store: http://opencart.qatestlab.net 🚀"
+run-name: ${{ github.actor }} is testing  Best Friends Store 🚀
 on:
   workflow_dispatch:
     inputs:
