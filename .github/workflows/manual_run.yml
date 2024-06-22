@@ -1,9 +1,10 @@
 name: Store test
 run-name: ${{ github.actor }} is testing http://opencart.qatestlab.net/ 🚀
+
 on:
   workflow_dispatch:
     inputs:
-      branch: 
+      branch:
         default: 'HW5'
 
 concurrency:
@@ -11,26 +12,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   test:
     continue-on-error: true
     runs-on: ubuntu-latest
     env:
       HEADLESS: true
-      
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Setup NodeJS
+      - name: Setup Node.js
         uses: actions/setup-node@v3
-    
+        with:
+          node-version: '14'  # Укажите версию Node.js
+
       - name: Install dependencies
-        run: npm i
+        run: npm install
       
       - name: Run tests
-        continue-on-error: true
         run: npx codeceptjs run --grep "buy" --reporter mochawesome
+        continue-on-error: true
       
       - name: Publish test results
         uses: actions/upload-artifact@v3
