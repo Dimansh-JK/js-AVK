@@ -6,7 +6,7 @@ exports.config = {
     Playwright: {
       browser: 'chromium',
       url: 'http://localhost',
-      show: true,
+      show: false,
       waitForNavigation: 'load',
       waitForTimeout: 10000,
       windowSize: '1400x900',
@@ -29,6 +29,9 @@ exports.config = {
     RatePLNtoUSD: {
       require: './helpers/rateplntousd_helper.js',
     },
+    Mochawesome: {
+      uniqueScreenshotNames: 'true',
+    },
   },
   include: {
     I: './steps_file.js',
@@ -36,6 +39,14 @@ exports.config = {
     accountPage: './pages/account.js',
     productPage: './pages/product.js',
     cartPage: './pages/cart.js',
+  },
+  mocha: {
+    reporterOptions: {
+      reportDir: 'output',
+      json: 'false',
+      reportFilename: '[datetime]_[name]_[status]-report',
+      timestamp: 'longDate',
+    },
   },
   name: 'js-AVK',
 };
