@@ -83,7 +83,6 @@ SOFTWARE.
 
 ## Badges
 
-TBD
-
+[![Store test](https://github.com/Dimansh-JK/js-AVK/actions/workflows/manual_run_main.yml/badge.svg)](https://github.com/Dimansh-JK/js-AVK/actions/workflows/manual_run_main.yml)
 
 
