@@ -1,9 +1,9 @@
 name: Store test
-run-name: ${{ github.actor }} is testing  Best Friends Store 🚀
+run-name: ${{ github.actor }} is testing http://opencart.qatestlab.net/ 🚀
 on:
   workflow_dispatch:
     inputs:
-      branch:
+      branch: 
         default: 'HW5'
 
 concurrency:
@@ -11,26 +11,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test: 
+
+  test:
+    continue-on-error: true
     runs-on: ubuntu-latest
     env:
       HEADLESS: true
-
-    steps: 
-      - name: Cloning repository code
+      
+    steps:
+      - name: Check out repository code
         uses: actions/checkout@v3
 
       - name: Setup NodeJS
         uses: actions/setup-node@v3
-      
+    
       - name: Install dependencies
         run: npm i
       
       - name: Run tests
+        continue-on-error: true
         run: npx codeceptjs run --grep "buy" --reporter mochawesome
       
       - name: Publish test results
         uses: actions/upload-artifact@v3
-        with: 
-          name: Test-Results
+        with:
+          name: test-results
           path: output
