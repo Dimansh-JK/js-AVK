@@ -1,5 +1,5 @@
 name: Store test
-run-name: ${{ github.actor }} is testing Store: http://opencart.qatestlab.net 🚀
+run-name: "${{ github.actor }} is testing Store: http://opencart.qatestlab.net 🚀"
 on:
   workflow_dispatch:
     inputs:
@@ -24,10 +24,10 @@ jobs:
         uses: actions/setup-node@v3
       
       - name: Install dependencies
-        uses: npm i
+        run: npm i
       
       - name: Run tests
-        uses: npx codeceptjs run --grep "buy" --reporter mochawesome
+        run: npx codeceptjs run --grep "buy" --reporter mochawesome
       
       - name: Publish test results
         uses: actions/upload-artifact@v3
