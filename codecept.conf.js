@@ -29,6 +29,9 @@ exports.config = {
     RatePLNtoUSD: {
       require: './helpers/rateplntousd_helper.js',
     },
+    Mochawesome: {
+      uniqueScreenshotNames: 'true',
+    },
   },
   include: {
     I: './steps_file.js',
