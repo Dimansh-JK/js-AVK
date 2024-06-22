@@ -16,6 +16,7 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     env:
+      CI: true
       HEADLESS: true
 
     steps:
