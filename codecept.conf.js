@@ -6,7 +6,7 @@ exports.config = {
     Playwright: {
       browser: 'chromium',
       url: 'http://localhost',
-      show: true,
+      show: false,
       waitForNavigation: 'load',
       waitForTimeout: 10000,
       windowSize: '1400x900',
